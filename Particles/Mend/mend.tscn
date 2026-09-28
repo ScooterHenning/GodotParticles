@@ -317,5 +317,5 @@ draw_pass_1 = SubResource("QuadMesh_fykji")
 [node name="OmniLight3D" type="OmniLight3D" parent="CastingParticle" unique_id=1295187759]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4401809, 0.48937416, 0)
 light_color = Color(0.80254227, 0.69015956, 0.18259895, 1)
-light_energy = 0.0
-omni_range = 13.985
+light_energy = 2.0
+omni_range = 1.35
