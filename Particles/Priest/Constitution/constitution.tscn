@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://dr0d7wn08vya8"]
+
+[ext_resource type="Texture2D" uid="uid://sme8hm3jac4j" path="res://brackeys_vfx_bundle/particles/alpha/magic_02_a.png" id="1_ck0oh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oxha2"]
+transparency = 1
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(0.58150476, 0.8125871, 1, 1)
+
+[sub_resource type="Curve" id="Curve_11rml"]
+_data = [Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.1572327, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.9465406, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bhnsc"]
+curve = SubResource("Curve_11rml")
+
+[sub_resource type="Gradient" id="Gradient_8o7mv"]
+colors = PackedColorArray(0.21116349, 0.69164824, 0.9999998, 1, 0.51698023, 0.62022525, 0.99853474, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3figq"]
+gradient = SubResource("Gradient_8o7mv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t2dwb"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 6.88
+emission_ring_inner_radius = 5.6
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 1, 0)
+scale_min = 0.59999996
+color_ramp = SubResource("GradientTexture1D_3figq")
+alpha_curve = SubResource("CurveTexture_bhnsc")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_m2va7"]
+radius = 0.171
+height = 0.365
+radial_segments = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhnsc"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.42234397, 0.81635046, 0.99999994, 1)
+albedo_texture = ExtResource("1_ck0oh")
+emission_enabled = true
+emission = Color(6.7383053e-06, 0.76553845, 0.9400597, 1)
+emission_energy_multiplier = 6.18
+
+[sub_resource type="Curve" id="Curve_xbji0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.11949686, 0.2868852), 0.0, 0.0, 0, 0, Vector2(0.836478, 0.1311475), -0.3620213, -0.3620213, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_3figq"]
+curve = SubResource("Curve_xbji0")
+
+[sub_resource type="Curve" id="Curve_osu3l"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.10377359, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_11rml"]
+curve = SubResource("Curve_osu3l")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m2va7"]
+gravity = Vector3(0, 0, 0)
+scale_min = 9.0
+scale_max = 9.0
+scale_curve = SubResource("CurveTexture_11rml")
+alpha_curve = SubResource("CurveTexture_3figq")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oxha2"]
+
+[node name="Constitution" type="Node3D" unique_id=596108485]
+
+[node name="Effects" type="Node3D" parent="." unique_id=1240555012]
+
+[node name="RingParticles" type="GPUParticles3D" parent="Effects" unique_id=1947957526]
+material_override = SubResource("StandardMaterial3D_oxha2")
+emitting = false
+amount = 50
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.33
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_t2dwb")
+draw_pass_1 = SubResource("CapsuleMesh_m2va7")
+
+[node name="FloorEffect" type="GPUParticles3D" parent="Effects" unique_id=1352571968]
+material_override = SubResource("StandardMaterial3D_bhnsc")
+emitting = false
+amount = 1
+lifetime = 2.0
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_m2va7")
+draw_pass_1 = SubResource("PlaneMesh_oxha2")
+
+[node name="TargetBuffEffect" type="Node3D" parent="." unique_id=1659426453]

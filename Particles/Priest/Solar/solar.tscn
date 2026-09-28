@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://cbwmov36wehnb"]
+
+[ext_resource type="Texture2D" uid="uid://bbbrqhl44aub0" path="res://brackeys_vfx_bundle/particles/alpha/trace_04_a.png" id="1_pboh4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oxha2"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.99999994, 0.61120504, 0.31103757, 1)
+emission_enabled = true
+emission = Color(0.826151, 0.58973104, 3.85046e-07, 1)
+
+[sub_resource type="Curve" id="Curve_m2va7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.22327042, 1), 0.0, 0.0, 0, 0, Vector2(0.7924528, 0.98360646), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_t2dwb"]
+curve = SubResource("Curve_m2va7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t2dwb"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 0.6
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, -2, 0)
+alpha_curve = SubResource("CurveTexture_t2dwb")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m2va7"]
+top_radius = 0.02
+bottom_radius = 0.0
+height = 0.585
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhnsc"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.89694595, 0.84253985, 3.85046e-07, 1)
+albedo_texture = ExtResource("1_pboh4")
+emission_enabled = true
+emission = Color(0.885547, 0.77746826, 7.70092e-07, 1)
+emission_energy_multiplier = 2.36
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_f0oqj"]
+_data = [Vector2(0, 0.22131145), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_fykji"]
+curve = SubResource("Curve_f0oqj")
+
+[sub_resource type="Curve" id="Curve_d4iex"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -0.32786882), 0.0, 0.0, 0, 0, Vector2(0.12578616, 0.27868855), 0.0, 0.0, 0, 0, Vector2(0.2515723, -0.32786882), 0.0, 0.0, 0, 0, Vector2(0.3742138, 0.34426224), 0.0, 0.0, 0, 0, Vector2(0.49685535, -0.34426224), 0.0, 0.0, 0, 0, Vector2(0.6163522, 0.36065567), 0.0, 0.0, 0, 0, Vector2(0.7515723, -0.29508197), 0.0, 0.0, 0, 0, Vector2(0.8867924, 0.36065567), 0.0, 0.0, 0, 0, Vector2(1, -0.29508197), 0.0, 0.0, 0, 0]
+point_count = 9
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a4sm5"]
+curve_y = SubResource("Curve_d4iex")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m2va7"]
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_a4sm5")
+gravity = Vector3(0, 0, 0)
+scale_min = 2.25
+scale_max = 2.25
+alpha_curve = SubResource("CurveTexture_fykji")
+turbulence_noise_strength = 2.7
+turbulence_influence_min = 0.43500003
+turbulence_influence_max = 0.43500003
+turbulence_initial_displacement_min = 24.000002
+turbulence_initial_displacement_max = 24.000002
+
+[sub_resource type="QuadMesh" id="QuadMesh_11rml"]
+
+[node name="Solar" type="Node3D" unique_id=38453315]
+
+[node name="TargetEffects" type="Node3D" parent="." unique_id=978601169]
+
+[node name="FallingParticles" type="GPUParticles3D" parent="TargetEffects" unique_id=1775324407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3907804, 0)
+material_override = SubResource("StandardMaterial3D_oxha2")
+emitting = false
+amount = 1
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_t2dwb")
+draw_pass_1 = SubResource("CylinderMesh_m2va7")
+
+[node name="Flare" type="GPUParticles3D" parent="TargetEffects" unique_id=85582260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.341963, 0)
+material_override = SubResource("StandardMaterial3D_bhnsc")
+emitting = false
+amount = 1
+lifetime = 18.0
+one_shot = true
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_m2va7")
+draw_pass_1 = SubResource("QuadMesh_11rml")
