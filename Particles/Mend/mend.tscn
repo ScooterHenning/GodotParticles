@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c2buq1ksva8w0" path="res://brackeys_vfx_bundle/particles/alpha/dirt_01_a.png" id="1_vn0bp"]
 [ext_resource type="Texture2D" uid="uid://3yulg3jdvvj8" path="res://brackeys_vfx_bundle/particles/alpha/effect_02_a.png" id="2_kyqnt"]
+[ext_resource type="Texture2D" uid="uid://c3ghcalqvdeb0" path="res://brackeys_vfx_bundle/particles/alpha/twirl_04_a.png" id="3_kyqnt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2va7"]
 transparency = 1
@@ -120,7 +121,7 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/path = NodePath("Sparks:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -132,7 +133,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles3D2:emitting")
+tracks/1/path = NodePath("Smoke:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -144,7 +145,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("GPUParticles3D3:emitting")
+tracks/2/path = NodePath("Blast:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -156,7 +157,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../OmniLight3D:light_energy")
+tracks/3/path = NodePath("OmniLight3D:light_energy")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -171,7 +172,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/path = NodePath("Sparks:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -183,7 +184,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles3D2:emitting")
+tracks/1/path = NodePath("Smoke:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -195,7 +196,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("GPUParticles3D3:emitting")
+tracks/2/path = NodePath("Blast:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -207,7 +208,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../OmniLight3D:light_energy")
+tracks/3/path = NodePath("OmniLight3D:light_energy")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -223,17 +224,40 @@ _data = {
 &"RESET": SubResource("Animation_r3dnt")
 }
 
-[node name="Mend" type="Node3D" unique_id=1977620338]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbji0"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_kyqnt")
+emission_enabled = true
+emission = Color(0.8690587, 0.7955697, 0.3481071, 1)
+emission_energy_multiplier = 3.0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1368437220]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66888607, 0)
-light_color = Color(0.80254227, 0.69015956, 0.18259895, 1)
-light_energy = 8.742
-omni_range = 13.985
+[sub_resource type="Curve" id="Curve_v55nt"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.09433962, 1), 0.0, 0.0, 0, 0, Vector2(0.9433962, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_dxhag"]
+curve = SubResource("Curve_v55nt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bhnsc"]
+angular_velocity_min = 199.99998
+angular_velocity_max = 199.99998
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_dxhag")
+color = Color(0.7249105, 0.6202006, 0.18566313, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_fykji"]
+
+[node name="Mend" type="Node3D" unique_id=1977620338]
 
 [node name="OnTargetParticle" type="Node3D" parent="." unique_id=233841236]
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="OnTargetParticle" unique_id=1192452218]
+[node name="Sparks" type="GPUParticles3D" parent="OnTargetParticle" unique_id=1192452218]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72196794, 0)
 material_override = SubResource("StandardMaterial3D_m2va7")
 emitting = false
@@ -246,7 +270,7 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_t2dwb")
 draw_pass_1 = SubResource("CylinderMesh_6dhna")
 
-[node name="GPUParticles3D2" type="GPUParticles3D" parent="OnTargetParticle" unique_id=386746175]
+[node name="Smoke" type="GPUParticles3D" parent="OnTargetParticle" unique_id=386746175]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72196794, 0)
 material_override = SubResource("StandardMaterial3D_oxha2")
 amount = 10
@@ -256,7 +280,7 @@ fixed_fps = 0
 process_material = SubResource("ParticleProcessMaterial_m2va7")
 draw_pass_1 = SubResource("QuadMesh_bhnsc")
 
-[node name="GPUParticles3D3" type="GPUParticles3D" parent="OnTargetParticle" unique_id=1205197209]
+[node name="Blast" type="GPUParticles3D" parent="OnTargetParticle" unique_id=1205197209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72196794, 0)
 material_override = SubResource("StandardMaterial3D_3figq")
 emitting = false
@@ -270,3 +294,28 @@ draw_pass_1 = SubResource("QuadMesh_11rml")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="OnTargetParticle" unique_id=1483398057]
 libraries/ = SubResource("AnimationLibrary_6dhna")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="OnTargetParticle" unique_id=1368437220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66888607, 0)
+light_color = Color(0.80254227, 0.69015956, 0.18259895, 1)
+light_energy = 8.742
+omni_range = 13.985
+
+[node name="CastingParticle" type="Node3D" parent="." unique_id=747730224]
+
+[node name="Twirl" type="GPUParticles3D" parent="CastingParticle" unique_id=1330781300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4466344, 0.48654604, 0)
+material_override = SubResource("StandardMaterial3D_xbji0")
+emitting = false
+amount = 1
+lifetime = 1.5
+one_shot = true
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_bhnsc")
+draw_pass_1 = SubResource("QuadMesh_fykji")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CastingParticle" unique_id=1295187759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4401809, 0.48937416, 0)
+light_color = Color(0.80254227, 0.69015956, 0.18259895, 1)
+light_energy = 0.0
+omni_range = 13.985
