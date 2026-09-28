@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c02fjcut0ucx6" path="res://brackeys_vfx_bundle/particles/alpha/circle_01_a.png" id="1_xvojd"]
 
 [sub_resource type="Gradient" id="Gradient_tqdqu"]
-colors = PackedColorArray(0.25882354, 0.23137255, 0.039215688, 0.6627451, 0.36287907, 0.3253531, 0.06818969, 0)
+colors = PackedColorArray(0.25882354, 0.23137255, 0.039215688, 0.078431375, 0.36287907, 0.3253531, 0.06818969, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_fykji"]
 gradient = SubResource("Gradient_tqdqu")
