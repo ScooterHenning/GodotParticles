@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://em54xmi1xh3x"]
+
+[ext_resource type="Shader" uid="uid://bwhutfjywphmx" path="res://Particles/Warrior/vengeance.gdshader" id="1_0bl4j"]
+[ext_resource type="Shader" uid="uid://4eq56hbtitcl" path="res://Particles/Warrior/vengeancematerial.gdshader" id="2_65nvl"]
+[ext_resource type="Texture2D" uid="uid://d3wyp2bh381cl" path="res://ScooterArt/VenganceShield.png" id="3_qk4j3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_11rml"]
+shader = ExtResource("1_0bl4j")
+shader_parameter/orbit_radius = 1.0
+shader_parameter/orbit_speed = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_reo1y"]
+render_priority = 0
+shader = ExtResource("2_65nvl")
+shader_parameter/shield_texture = ExtResource("3_qk4j3")
+shader_parameter/opacity = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_oxha2"]
+material = SubResource("ShaderMaterial_reo1y")
+size = Vector2(2, 2)
+
+[node name="Vengeance" type="Node3D" unique_id=647213857]
+
+[node name="TargetEffect" type="Node3D" parent="." unique_id=1421679146]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="TargetEffect" unique_id=864389612]
+emitting = false
+amount = 4
+lifetime = 10.0
+fixed_fps = 0
+local_coords = true
+process_material = SubResource("ShaderMaterial_11rml")
+draw_pass_1 = SubResource("QuadMesh_oxha2")
