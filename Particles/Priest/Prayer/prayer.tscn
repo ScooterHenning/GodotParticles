@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://bp8pp1rdq86f0"]
+
+[ext_resource type="Texture2D" uid="uid://diahuby6nidsc" path="res://brackeys_vfx_bundle/particles/alpha/spotlight_01_a.png" id="1_8kce2"]
+
+[sub_resource type="Animation" id="Animation_8kce2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_nfelh"]
+resource_name = "play"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 4.541, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4b5l0"]
+_data = {
+&"RESET": SubResource("Animation_8kce2"),
+&"play": SubResource("Animation_nfelh")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oxha2"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.63663054, 0.5219281, 0, 1)
+albedo_texture = ExtResource("1_8kce2")
+emission_enabled = true
+emission = Color(0.7371784, 0.61719054, 0.0544801, 1)
+emission_energy_multiplier = 3.63
+
+[sub_resource type="Curve" id="Curve_3figq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.13089006, 1), 0.0, 0.0, 0, 0, Vector2(0.5798429, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_11rml"]
+curve = SubResource("Curve_3figq")
+
+[sub_resource type="Curve" id="Curve_nfelh"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 1), 2.0503879, 2.0503879, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bhnsc"]
+curve = SubResource("Curve_nfelh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t2dwb"]
+gravity = Vector3(0, 0, 0)
+scale_min = 13.799999
+scale_max = 13.799999
+scale_curve = SubResource("CurveTexture_bhnsc")
+alpha_curve = SubResource("CurveTexture_11rml")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m2va7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhnsc"]
+transparency = 1
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(0.6397494, 0.5386397, 0.085414134, 1)
+emission_energy_multiplier = 0.63
+
+[sub_resource type="Curve" id="Curve_xbji0"]
+_data = [Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.23952879, 0.14634144), 0.0, 0.0, 0, 0, Vector2(0.5091623, 0.10060972), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_3figq"]
+curve = SubResource("Curve_xbji0")
+
+[sub_resource type="Curve" id="Curve_8kce2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 1.3852551, 1.3852551, 0, 0, Vector2(0.99999, 1), 0.45678917, 0.45678917, 0, 0, Vector2(1, 1), 0.98546, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_nfelh"]
+curve = SubResource("Curve_8kce2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m2va7"]
+gravity = Vector3(0, 0, 0)
+scale_min = 8.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_nfelh")
+color = Color(0.5430983, 0.51088214, 0.03425177, 1)
+alpha_curve = SubResource("CurveTexture_3figq")
+
+[sub_resource type="TorusMesh" id="TorusMesh_oxha2"]
+
+[node name="Prayer" type="Node3D" unique_id=1674871091]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=388059725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8046503, 0)
+light_color = Color(0.8539021, 0.7342699, 0, 1)
+light_energy = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=427894755]
+libraries/ = SubResource("AnimationLibrary_4b5l0")
+autoplay = &"play"
+
+[node name="Effects" type="Node3D" parent="." unique_id=493258257]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Effects" unique_id=603666199]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06639433, 0)
+material_override = SubResource("StandardMaterial3D_oxha2")
+emitting = false
+amount = 1
+lifetime = 0.4
+one_shot = true
+fixed_fps = 0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_t2dwb")
+draw_pass_1 = SubResource("PlaneMesh_m2va7")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="Effects" unique_id=1312391352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9472022, 0)
+material_override = SubResource("StandardMaterial3D_bhnsc")
+emitting = false
+amount = 1
+lifetime = 0.4
+one_shot = true
+fixed_fps = 0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_m2va7")
+draw_pass_1 = SubResource("TorusMesh_oxha2")

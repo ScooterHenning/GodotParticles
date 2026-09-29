@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://daccngquxudp3"]
+
+[ext_resource type="Texture2D" uid="uid://lh38agwhnfbf" path="res://brackeys_vfx_bundle/particles/alpha/twirl_02_a.png" id="1_gxyxk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00sqa"]
+transparency = 1
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_gxyxk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.14528796, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0961252, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8ttlk"]
+curve = SubResource("Curve_gxyxk")
+
+[sub_resource type="Gradient" id="Gradient_s63ry"]
+colors = PackedColorArray(0.45490196, 0.8117647, 1, 1, 0.11372549, 0.32156864, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ugn1m"]
+gradient = SubResource("Gradient_s63ry")
+
+[sub_resource type="Gradient" id="Gradient_8vo2r"]
+colors = PackedColorArray(0, 0.6901961, 1, 0, 0.047058824, 0.16862746, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0s00y"]
+gradient = SubResource("Gradient_8vo2r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1jgvk"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.95
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 0.6, 0)
+scale_min = 0.049999997
+scale_max = 0.099999994
+color_ramp = SubResource("GradientTexture1D_0s00y")
+color_initial_ramp = SubResource("GradientTexture1D_ugn1m")
+alpha_curve = SubResource("CurveTexture_8ttlk")
+
+[sub_resource type="SphereMesh" id="SphereMesh_q6u5j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s63ry"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_gxyxk")
+
+[sub_resource type="Curve" id="Curve_8vo2r"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.092931926, 0.17014927), 0.0, 0.0, 0, 0, Vector2(0.8887434, 0.116417944), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_xbji0"]
+curve = SubResource("Curve_8vo2r")
+
+[sub_resource type="Gradient" id="Gradient_1jgvk"]
+colors = PackedColorArray(0, 0.5411765, 1, 1, 0.14509805, 0.27058825, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f0oqj"]
+gradient = SubResource("Gradient_1jgvk")
+
+[sub_resource type="Curve" id="Curve_q6u5j"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.01832461, 1), 0.0, 0.0, 0, 0, Vector2(0.87958115, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_11rml"]
+curve = SubResource("Curve_q6u5j")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_63eln"]
+particle_flag_rotate_y = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
+angular_velocity_min = 89.999985
+angular_velocity_max = 89.999985
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_11rml")
+color_ramp = SubResource("GradientTexture1D_f0oqj")
+alpha_curve = SubResource("CurveTexture_xbji0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i2oos"]
+
+[node name="Mana" type="Node3D" unique_id=976922839]
+
+[node name="Effects" type="Node3D" parent="." unique_id=1995451336]
+
+[node name="RegenTargetParticels" type="GPUParticles3D" parent="Effects" unique_id=1277413135]
+material_override = SubResource("StandardMaterial3D_00sqa")
+amount = 10
+lifetime = 4.0
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_1jgvk")
+draw_pass_1 = SubResource("SphereMesh_q6u5j")
+
+[node name="GroundCircle" type="GPUParticles3D" parent="Effects" unique_id=2028854167]
+material_override = SubResource("StandardMaterial3D_s63ry")
+emitting = false
+amount = 1
+lifetime = 18.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_63eln")
+draw_pass_1 = SubResource("PlaneMesh_i2oos")
